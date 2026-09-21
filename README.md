@@ -1,30 +1,51 @@
 # Jev vs LLM Latency Benchmark
 
-TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換 LLM（OpenAI API / LM Studio など）の**回答速度・正解率・回答一致率**を比較するベンチマークツールです。
+[![CI](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/ci.yml)
+[![Deploy to GitHub Pages](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/deploy.yml/badge.svg)](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)
 
-同じ state に対して両方のモデルに構造化された判断を依頼し、レイテンシと回答品質を並べて可視化します。
+Latency benchmark comparing TypeSafe Jev (System One) against a conventional LLM.
+
+TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換 LLM（OpenAI API / LM Studio など）の**回答速度・正解率・回答一致率**を比較するベンチマークツールです。同じ state に対して両モデルに構造化された判断を依頼し、レイテンシと回答品質を並べて可視化します。
+
+**Live Demo:** https://chronona.github.io/jev-llm-benchmark/
 
 ## 特徴
 
-- **Jev vs LLM のレイテンシ比較**
-  - 質問ごとの平均レイテンシ ± 標準偏差
-  - 速度差（倍率）
-- **回答品質の可視化**
-  - 各モデルの期待値（模範解答）一致率
-  - Jev と LLM の回答一致率
-  - 質問ごとの一致/不一致を色分け表示
-- **LM Studio 対応**
-  - `LLM_BASE_URL` でローカル LLM サーバーを指定可能
-- **カスタム入力対応**
-  - コマンドラインから任意のテキストを追加
-  - JSON ファイルから複数入力を一括読み込み
-- **C4 モデル設計書付き**
-  - `docs/c4-model.md` に Context / Container / Component / Code を記載
+- 質問ごとの平均レイテンシ ± 標準偏差、速度差（倍率）を計測
+- 各モデルの期待値（模範解答）一致率、Jev と LLM の回答一致率を可視化
+- 質問ごとの一致 / 不一致を色分け表示（Chart.js ダッシュボード）
+- `LLM_BASE_URL` で LM Studio などのローカル LLM を指定可能
+- CLI からのカスタム入力追加、JSON ファイルからの一括読み込みに対応
+
+## ベンチマーク内容
+
+デフォルト10問（`src/questions.ts`）。各問に `expected`（模範解答）付きで正解率を算出します。
+
+| id | 判定内容 | 期待値の例 |
+| --- | --- | --- |
+| sentiment | ポジティブ / ニュートラル / ネガティブ | `positive` |
+| category | 問い合わせの振り分け先 | `billing` |
+| urgency | 緊急度 0-2 | `2` |
+| intent | ユーザーの意図 | `upgrade` |
+| spam | スパム判定 | `true` |
+| priority | チケット優先度 | `medium` |
+| feedback_type | フィードバック種別 | `feature_request` |
+| language | 言語判定 | `french` |
+| semantic_match | 2文の意味一致判定 | `true` |
+| risk | リスク評価 0-2 | `2` |
+
+## 必要なもの
+
+- Node.js 20+
+- TypeSafe AI API キー（[typesafe.ai](https://typesafe.ai) で取得）
+- LLM API キー（OpenAI、または LM Studio などの OpenAI 互換エンドポイント）
 
 ## クイックスタート
 
 ```bash
-git clone https://github.com/yourname/jev-llm-benchmark.git
+git clone https://github.com/Chronona/jev-llm-benchmark.git
 cd jev-llm-benchmark
 npm install
 cp .env.example .env
@@ -44,14 +65,23 @@ npm run serve
 npm run bench
 
 # カスタム入力を追加
-npm run bench -i "決済が失敗します"
+npm run bench -- -i "決済が失敗します"
 
 # ファイルから複数入力を読み込み、デフォルト質問はスキップ
-npm run bench --questions-file data/test-questions.json --skip-defaults
+npm run bench -- --questions-file data/test-questions.json --skip-defaults
 
 # イテレーション数とウォームアップ回数を変更
-npm run bench --iterations 5 --warmup 2
+npm run bench -- --iterations 5 --warmup 2
 ```
+
+| オプション | 説明 | 既定値 |
+| --- | --- | --- |
+| `-i, --input <text>` | カスタム入力を追加 | — |
+| `--questions-file <path>` | JSON 配列（文字列または `{id, state}`）から読み込み | — |
+| `--skip-defaults` | 組み込み10問をスキップ | `false` |
+| `-n, --iterations <num>` | 計測回数 | `ITERATIONS` または `3` |
+| `--warmup <num>` | ウォームアップ回数 | `WARMUP_RUNS` または `1` |
+| `--output <path>` | 結果の出力先 | `data/results.json` |
 
 ### ダッシュボード確認
 
@@ -59,33 +89,23 @@ npm run bench --iterations 5 --warmup 2
 npm run serve
 ```
 
-`http://localhost:3000/public/` をブラウザで開きます。
+`data/results.json` が `public/data/results.json` にコピーされ（存在しない場合はサンプル生成）、`http://localhost:3000/` で結果を表示します。
 
 ## 設定
 
-`.env` ファイルで設定します。
+`.env.example` を `.env` にコピーして編集します。詳細は `.env.example` を正本とします。
 
-```env
-# TypeSafe AI API key
-TYPESAFE_API_KEY=your_typesafe_api_key_here
+| 変数 | 説明 | 例 |
+| --- | --- | --- |
+| `TYPESAFE_API_KEY` | TypeSafe AI API キー（必須） | — |
+| `LLM_API_KEY` | LLM API キー（必須） | — |
+| `LLM_BASE_URL` | OpenAI 互換エンドポイント | `https://api.openai.com/v1` / LM Studio は `http://localhost:1234/v1` |
+| `LLM_MODEL` | LLM モデル名 | `gpt-4o-mini` |
+| `JEV_MODEL` | Jev モデル名 | `jev-latest` |
+| `ITERATIONS` | 計測回数 | `3` |
+| `WARMUP_RUNS` | ウォームアップ回数 | `1` |
 
-# LLM API 設定（OpenAI または OpenAI 互換エンドポイント）
-# LM Studio の場合: LLM_BASE_URL=http://localhost:1234/v1
-LLM_BASE_URL=https://api.openai.com/v1
-LLM_API_KEY=your_llm_api_key_here
-LLM_MODEL=gpt-4o-mini
-
-# ベンチマーク設定
-ITERATIONS=3
-WARMUP_RUNS=1
-JEV_MODEL=jev-latest
-```
-
-## 質問セットのカスタマイズ
-
-`src/questions.ts` の `questions` 配列を編集するか、外部 JSON ファイルを用意します。
-
-### 外部 JSON ファイルの形式
+外部 JSON ファイルの形式：
 
 ```json
 [
@@ -94,29 +114,23 @@ JEV_MODEL=jev-latest
 ]
 ```
 
-## GitHub Pages へのデプロイ
+## プロジェクト構成
 
-1. このリポジトリを GitHub にプッシュ
-2. Settings → Pages → Source を **GitHub Actions** に設定
-3. GitHub Actions ワークフロー `.github/workflows/deploy.yml` が自動的に `public/` ディレクトリをデプロイ
-
-**デモ用サンプル結果**: 初回デプロイ時に `public/data/results.json` が存在しない場合、自動的にサンプル結果が生成されます。
-
-**実測結果を公開する場合**:
-
-```bash
-npm run bench
-cp data/results.json public/data/results.json
-git add public/data/results.json
-git commit -m "Update benchmark results"
-git push
+```text
+src/benchmark.ts   CLI、本計測、集計、results.json 出力
+src/questions.ts   デフォルト10問 + カスタム入力ビルダー
+src/clients.ts     JevClient（TypeSafe SDK）、LLMClient（OpenAI SDK）
+src/types.ts       型定義（正本）
+data/              test-questions.json（例）、results.json（ローカル実行結果・git除外）
+public/            ダッシュボード（index.html + data/results.json）
+scripts/           serve 用コピー/サンプル生成
+.github/workflows/  CI（typecheck）、GitHub Pages デプロイ
+docs/c4-model.md   C4 設計モデル
 ```
 
-`public/data/results.json` は `.gitignore` で除外されていないため、コミットすると GitHub Pages に反映されます。`data/results.json` はローカル実行結果として引き続き除外されます。
+## アーキテクチャ
 
-## C4 設計モデル
-
-### C1 - System Context
+詳細は [docs/c4-model.md](docs/c4-model.md) を参照してください。
 
 ```mermaid
 flowchart TB
@@ -135,122 +149,36 @@ flowchart TB
     Bench -->|writes results.json| Dashboard
 ```
 
-### C2 - Container
+## GitHub Pages へのデプロイ
 
-```mermaid
-flowchart TB
-    subgraph "Local Machine"
-        Runner[Node.js Benchmark Runner<br/>TypeScript + tsx]
-        HTML[Static HTML Dashboard<br/>Chart.js + Mermaid]
-        Env[.env configuration]
-    end
+1. このリポジトリを GitHub にプッシュ
+2. Settings → Pages → Source を **GitHub Actions** に設定
+3. `main` への push で `.github/workflows/deploy.yml` が `public/` を自動デプロイ
 
-    subgraph "External Services"
-        TS[TypeSafe AI API<br/>model: jev-latest]
-        OAI[OpenAI API<br/>or OpenAI-compatible proxy]
-        LMStudio[LM Studio<br/>localhost:1234/v1]
-    end
+実測結果を公開する場合：
 
-    Env -->|TYPESAFE_API_KEY| Runner
-    Env -->|LLM_API_KEY| Runner
-    Env -->|LLM_BASE_URL| Runner
-    Runner -->|1. call Jev| TS
-    Runner -->|2. call LLM| OAI
-    Runner -.->|2-alt. call local LLM| LMStudio
-    Runner -->|3. write results.json| HTML
+```bash
+npm run bench
+cp data/results.json public/data/results.json
+git add public/data/results.json
+git commit -m "Update benchmark results"
+git push
 ```
 
-| コンテナ | 責務 | 技術 |
-| --- | --- | --- |
-| Benchmark Runner | 質問セットを読み込み、両APIを呼び出し、レイテンシとusageを計測・保存 | Node.js 20+, TypeScript, tsx |
-| Static HTML Dashboard | results.json を読み込み、表・グラフを表示 | Vanilla HTML + Chart.js |
-| .env configuration | APIキーなどの機密情報を分離管理 | dotenv |
-| TypeSafe AI API | System One モデル Jev が構造化回答を返す | HTTPS JSON API |
-| OpenAI API | 生成LLMがテキスト/JSON回答を返す | HTTPS JSON API |
-| LM Studio | ローカルで動作するOpenAI互換API（任意） | HTTP JSON API on localhost |
-
-### C3 - Component
-
-```mermaid
-flowchart LR
-    subgraph "Benchmark Runner"
-        CLI[CLI / Main]
-        QS[QuestionSet<br/>質問セット定義]
-        JC[JevClient<br/>TypeSafe SDK]
-        LC[LLMClient<br/>OpenAI SDK]
-        TM[Timer<br/>latency measurement]
-        RS[ResultStore<br/>JSON serializer]
-        RP[Reporter<br/>console summary]
-    end
-
-    CLI -->|load| QS
-    CLI -->|measure| TM
-    CLI -->|invoke| JC
-    CLI -->|invoke| LC
-    JC -->|raw answer| TM
-    LC -->|raw answer| TM
-    TM -->|record| RS
-    RS -->|write| RP
-```
-
-### C4 - Code
-
-```mermaid
-classDiagram
-    class BenchmarkConfig {
-        +iterations: number
-        +warmupRuns: number
-        +jevModel: string
-        +llmModel: string
-    }
-
-    class Question {
-        +id: string
-        +state: string
-        +jevQuestions: Record~string, Question~
-        +llmPrompt: string
-        +expected: object
-    }
-
-    class Timing {
-        +startMs: number
-        +endMs: number
-        +totalMs: number
-    }
-
-    class BenchmarkResult {
-        +questionId: string
-        +iteration: number
-        +jev: ProviderResult
-        +llm: ProviderResult
-    }
-
-    class ProviderResult {
-        +model: string
-        +timing: Timing
-        +usage: Usage
-        +answer: object
-    }
-
-    class Usage {
-        +inputTokens: number
-        +outputTokens: number
-    }
-
-    BenchmarkConfig <-- BenchmarkResult
-    Question <-- BenchmarkResult
-    Timing <-- ProviderResult
-    Usage <-- ProviderResult
-    ProviderResult <-- BenchmarkResult
-```
+`data/results.json` はローカル用（git除外）、`public/data/results.json` は公開用（コミット対象）です。後者がない初回デプロイ時はサンプル結果が自動生成されます。
 
 ## 注意点
 
-- **API キーは決してコミットしないでください**。`.env` は `.gitignore` で除外されています。
-- **比較の公平性**: Jev は System One（構造化判断）モデル、LLM は生成モデルです。役割が異なるため、単純な速度比較ではなく、ユースケースに応じた比較としてご利用ください。
+- **API キーはコミットしないでください**。`.env` は `.gitignore` で除外されています。
+- **比較の公平性**: Jev は System One（構造化判断）モデル、LLM は生成モデルです。役割が異なるため、単純な速度比較ではなくユースケースに応じた比較としてご利用ください。
 - **結果の再現性**: モデルバージョン、サーバー負荷、ネットワーク環境、ハードウェアによってレイテンシは変動します。
-- **LM Studio の制約**: LM Studio の OpenAI 互換 API は `response_format: { type: "json_object" }` をサポートしていないため、本ツールは `text` モード + JSON 抽出方式を使用しています。
+- **LM Studio の制約**: OpenAI 互換 API が `response_format: { type: "json_object" }` をサポートしていないため、本ツールは text モード + JSON 抽出方式を使用しています。
 
 ## ライセンス
 
-MIT
+MIT — [LICENSE](LICENSE) を参照してください。
+
+## 関連リンク
+
+- [TypeSafe AI](https://typesafe.ai)
+- [LM Studio](https://lmstudio.ai/)

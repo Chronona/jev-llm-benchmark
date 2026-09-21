@@ -14,7 +14,7 @@
     "benchmark",
     "latency"
   ],
-  "author": "",
+  "author": "chronona",
   "license": "MIT",
   "dependencies": {
     "@typesafe-ai/sdk": "0.6.0",
