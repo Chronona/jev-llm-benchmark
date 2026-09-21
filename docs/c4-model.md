@@ -27,7 +27,7 @@ flowchart TB
 flowchart TB
     subgraph "Local Machine"
         Runner[Node.js Benchmark Runner<br/>TypeScript + tsx]
-        HTML[Static HTML Dashboard<br/>Chart.js + Mermaid]
+        HTML[React Dashboard<br/>shadcn/ui + Chart.js + Vite]
         Env[.env configuration]
     end
 
@@ -43,13 +43,13 @@ flowchart TB
     Runner -->|1. call Jev| TS
     Runner -->|2. call LLM| OAI
     Runner -.->|2-alt. call local LLM| LocalLLM
-    Runner -->|3. write results.json| HTML
+    Runner -->|3. results.json → Vite build| HTML
 ```
 
 | コンテナ | 責務 | 技術 |
 | --- | --- | --- |
 | Benchmark Runner | 質問セットを読み込み、両APIを呼び出し、レイテンシとusageを計測・保存 | Node.js 24+, TypeScript, tsx |
-| Static HTML Dashboard | results.json を読み込み、表・グラフを表示 | Vanilla HTML + Chart.js |
+| React Dashboard | results.json を読み込み、表・グラフを表示（Vite で dist/ にビルド） | React + shadcn/ui + Chart.js |
 | .env configuration | APIキーなどの機密情報を分離管理 | dotenv |
 | TypeSafe AI API | System One モデル Jev が構造化回答を返す | HTTPS JSON API |
 | OpenAI API | 生成LLMがテキスト/JSON回答を返す | HTTPS JSON API |
@@ -79,7 +79,7 @@ flowchart LR
     RS -->|write| RP
 ```
 
-ソース対応：`src/benchmark.ts`（CLI / Timer / ResultStore / Reporter）、`src/questions.ts`（QuestionSet）、`src/clients.ts`（JevClient / LLMClient）、`src/types.ts`（型定義）。
+ソース対応：`src/benchmark.ts`（CLI / Timer / ResultStore / Reporter）、`src/questions.ts`（QuestionSet）、`src/clients.ts`（JevClient / LLMClient）、`src/types.ts`（型定義）、`dashboard/src/`（App / components / lib）。
 
 ## C4 - Code
 

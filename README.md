@@ -15,7 +15,7 @@ TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換
 
 - 質問ごとの平均レイテンシ ± 標準偏差、速度差（倍率）を計測
 - 各モデルの期待値（模範解答）一致率、Jev と LLM の回答一致率を可視化
-- 質問ごとの一致 / 不一致を色分け表示（Chart.js ダッシュボード）
+- 質問ごとの一致 / 不一致を色分け表示（React + shadcn/ui ダッシュボード）
 - `LLM_BASE_URL` で LM Studio・llama.cpp などのローカル LLM を指定可能
 - CLI からのカスタム入力追加、JSON ファイルからの一括読み込みに対応
 
@@ -48,6 +48,7 @@ TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換
 git clone https://github.com/Chronona/jev-llm-benchmark.git
 cd jev-llm-benchmark
 npm install
+npm --prefix dashboard install
 cp .env.example .env
 # .env に API キーと LLM エンドポイントを設定
 npm run bench
@@ -86,10 +87,14 @@ npm run bench -- --iterations 5 --warmup 2
 ### ダッシュボード確認
 
 ```bash
+# ビルド＋静的配信（http://localhost:3000/）
 npm run serve
+
+# 開発用（ホットリロード、http://localhost:5173/jev-llm-benchmark/）
+npm run dashboard:dev
 ```
 
-`data/results.json` が `public/data/results.json` にコピーされ（存在しない場合はサンプル生成）、`http://localhost:3000/` で結果を表示します。
+`data/results.json` がダッシュボードに組み込まれます。存在しない場合は `data/sample-results.json`、それもない場合は自動生成サンプルが使われます。
 
 ## 設定
 
@@ -121,10 +126,10 @@ src/benchmark.ts   CLI、本計測、集計、results.json 出力
 src/questions.ts   デフォルト10問 + カスタム入力ビルダー
 src/clients.ts     JevClient（TypeSafe SDK）、LLMClient（OpenAI SDK）
 src/types.ts       型定義（正本）
-data/              test-questions.json（例）、results.json（ローカル実行結果・git除外）
-public/            ダッシュボード（index.html + data/results.json）
-scripts/           serve 用コピー/サンプル生成
-.github/workflows/  CI（typecheck）、GitHub Pages デプロイ
+data/              test-questions.json（例）、sample-results.json（デモ用）、results.json（ローカル実行結果・git除外）
+dashboard/         React + shadcn/ui ダッシュボード（Vite ビルド、dist/ を配信）
+scripts/           ダッシュボード用データ準備 / サンプル生成
+.github/workflows/  CI（typecheck + dashboard ビルド）、GitHub Pages デプロイ
 docs/c4-model.md   C4 設計モデル
 ```
 
