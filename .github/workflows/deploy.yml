@@ -27,10 +27,15 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Generate sample results for demo
+      - name: Prepare results for demo
         run: |
           mkdir -p public/data
-          node scripts/generate-sample-results.js > public/data/results.json
+          if [ -f public/data/results.json ]; then
+            echo "Using committed public/data/results.json"
+          else
+            echo "Generating sample results..."
+            node scripts/generate-sample-results.js > public/data/results.json
+          fi
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

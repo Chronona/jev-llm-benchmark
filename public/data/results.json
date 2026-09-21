@@ -1,0 +1,1742 @@
+{
+  "meta": {
+    "generatedAt": "2026-09-21T15:10:41.793Z",
+    "iterations": 3,
+    "warmupRuns": 1,
+    "jevModel": "jev-latest",
+    "llmModel": "qwen3.6-35b-a3b-mtp"
+  },
+  "runs": [
+    {
+      "questionId": "sentiment",
+      "iteration": 1,
+      "state": "I absolutely love the new dashboard, it is so fast and intuitive!",
+      "expected": {
+        "sentiment": "positive"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 5366.4673,
+          "endMs": 5875.7251,
+          "totalMs": 509.2577999999994
+        },
+        "usage": {
+          "input_tokens": 359,
+          "output_tokens": 39
+        },
+        "answer": {
+          "sentiment": {
+            "type": "choice",
+            "choice": "positive",
+            "confidence": 1,
+            "probabilities": {
+              "negative": 0,
+              "positive": 1,
+              "neutral": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 5875.7306,
+          "endMs": 9330.0295,
+          "totalMs": 3454.2989000000007
+        },
+        "usage": {
+          "input_tokens": 126,
+          "output_tokens": 200
+        },
+        "answer": {
+          "sentiment": "positive"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "sentiment",
+          "expected": "positive",
+          "jevActual": "positive",
+          "llmActual": "positive",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "category",
+      "iteration": 1,
+      "state": "I was charged twice this month. Please refund the duplicate payment.",
+      "expected": {
+        "category": "billing"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 9638.8426,
+          "endMs": 9829.5665,
+          "totalMs": 190.72390000000087
+        },
+        "usage": {
+          "input_tokens": 372,
+          "output_tokens": 45
+        },
+        "answer": {
+          "category": {
+            "type": "choice",
+            "choice": "billing",
+            "confidence": 1,
+            "probabilities": {
+              "billing": 1,
+              "other": 0,
+              "technical": 0,
+              "sales": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 9829.5727,
+          "endMs": 13470.3678,
+          "totalMs": 3640.7950999999994
+        },
+        "usage": {
+          "input_tokens": 127,
+          "output_tokens": 231
+        },
+        "answer": {
+          "category": "billing"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "category",
+          "expected": "billing",
+          "jevActual": "billing",
+          "llmActual": "billing",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "urgency",
+      "iteration": 1,
+      "state": "The production database is down and customers cannot complete checkout.",
+      "expected": {
+        "urgency": 2
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 13780.5622,
+          "endMs": 13979.5882,
+          "totalMs": 199.02599999999984
+        },
+        "usage": {
+          "input_tokens": 327,
+          "output_tokens": 18
+        },
+        "answer": {
+          "urgency": {
+            "type": "score",
+            "score": 2,
+            "confidence": 1,
+            "legend": {
+              "0": "Low urgency: cosmetic or minor inconvenience",
+              "1": "Medium urgency: partial feature degradation",
+              "2": "High urgency: major business impact, many users affected"
+            },
+            "probabilities": {
+              "0": 0,
+              "1": 0,
+              "2": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 13979.5943,
+          "endMs": 18547.0478,
+          "totalMs": 4567.4535
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 199
+        },
+        "answer": {
+          "urgency": 2
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "urgency",
+          "expected": 2,
+          "jevActual": 2,
+          "llmActual": 2,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "intent",
+      "iteration": 1,
+      "state": "Can I upgrade my plan to include more users?",
+      "expected": {
+        "intent": "upgrade"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 18857.6441,
+          "endMs": 19312.839,
+          "totalMs": 455.1948999999986
+        },
+        "usage": {
+          "input_tokens": 371,
+          "output_tokens": 47
+        },
+        "answer": {
+          "intent": {
+            "type": "choice",
+            "choice": "upgrade",
+            "confidence": 1,
+            "probabilities": {
+              "complaint": 0,
+              "upgrade": 1,
+              "cancel": 0,
+              "inquiry": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 19312.8669,
+          "endMs": 21867.0784,
+          "totalMs": 2554.2114999999976
+        },
+        "usage": {
+          "input_tokens": 124,
+          "output_tokens": 135
+        },
+        "answer": {
+          "intent": "upgrade"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "intent",
+          "expected": "upgrade",
+          "jevActual": "upgrade",
+          "llmActual": "upgrade",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "spam",
+      "iteration": 1,
+      "state": "Click here NOW to win a free iPhone!!! Limited time only!!!",
+      "expected": {
+        "is_spam": true
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 22172.2099,
+          "endMs": 22366.8547,
+          "totalMs": 194.6447999999982
+        },
+        "usage": {
+          "input_tokens": 327,
+          "output_tokens": 22
+        },
+        "answer": {
+          "is_spam": {
+            "type": "noul",
+            "noul": 0.98
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 22366.8624,
+          "endMs": 29861.206,
+          "totalMs": 7494.3435999999965
+        },
+        "usage": {
+          "input_tokens": 120,
+          "output_tokens": 433
+        },
+        "answer": {
+          "is_spam": true
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "is_spam",
+          "expected": true,
+          "jevActual": 0.98,
+          "llmActual": true,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "priority",
+      "iteration": 1,
+      "state": "My monthly report export is taking longer than usual.",
+      "expected": {
+        "priority": "medium"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 30175.5529,
+          "endMs": 30635.4544,
+          "totalMs": 459.90149999999994
+        },
+        "usage": {
+          "input_tokens": 407,
+          "output_tokens": 45
+        },
+        "answer": {
+          "priority": {
+            "type": "choice",
+            "choice": "medium",
+            "confidence": 1,
+            "probabilities": {
+              "medium": 1,
+              "urgent": 0,
+              "low": 0,
+              "high": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 30635.4621,
+          "endMs": 34220.5764,
+          "totalMs": 3585.1142999999975
+        },
+        "usage": {
+          "input_tokens": 231,
+          "output_tokens": 162
+        },
+        "answer": {
+          "priority": "medium"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "priority",
+          "expected": "medium",
+          "jevActual": "medium",
+          "llmActual": "medium",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "feedback_type",
+      "iteration": 1,
+      "state": "Dark mode would be a great addition to the mobile app.",
+      "expected": {
+        "feedback_type": "feature_request"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 34529.5946,
+          "endMs": 34699.5584,
+          "totalMs": 169.963800000005
+        },
+        "usage": {
+          "input_tokens": 367,
+          "output_tokens": 50
+        },
+        "answer": {
+          "feedback_type": {
+            "type": "choice",
+            "choice": "feature_request",
+            "confidence": 1,
+            "probabilities": {
+              "bug": 0,
+              "praise": 0,
+              "complaint": 0,
+              "feature_request": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 34699.5668,
+          "endMs": 41092.3269,
+          "totalMs": 6392.7600999999995
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 406
+        },
+        "answer": {
+          "feedback_type": "feature_request"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "feedback_type",
+          "expected": "feature_request",
+          "jevActual": "feature_request",
+          "llmActual": "feature_request",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "language",
+      "iteration": 1,
+      "state": "Bonjour, je ne peux pas me connecter à mon compte.",
+      "expected": {
+        "language": "french"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 41407.2357,
+          "endMs": 41902.097,
+          "totalMs": 494.8613000000041
+        },
+        "usage": {
+          "input_tokens": 382,
+          "output_tokens": 57
+        },
+        "answer": {
+          "language": {
+            "type": "choice",
+            "choice": "french",
+            "confidence": 1,
+            "probabilities": {
+              "other": 0,
+              "german": 0,
+              "english": 0,
+              "french": 1,
+              "spanish": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 41902.1107,
+          "endMs": 45099.5371,
+          "totalMs": 3197.426400000004
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 195
+        },
+        "answer": {
+          "language": "french"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "language",
+          "expected": "french",
+          "jevActual": "french",
+          "llmActual": "french",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "semantic_match",
+      "iteration": 1,
+      "state": "The payment failed. The transaction did not go through.",
+      "expected": {
+        "same_meaning": true
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 45414.6954,
+          "endMs": 45612.1605,
+          "totalMs": 197.46510000000126
+        },
+        "usage": {
+          "input_tokens": 318,
+          "output_tokens": 23
+        },
+        "answer": {
+          "same_meaning": {
+            "type": "noul",
+            "noul": 0.92
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 45612.1741,
+          "endMs": 66097.2624,
+          "totalMs": 20485.08830000001
+        },
+        "usage": {
+          "input_tokens": 117,
+          "output_tokens": 1223
+        },
+        "answer": {
+          "same_meaning": true
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "same_meaning",
+          "expected": true,
+          "jevActual": 0.92,
+          "llmActual": true,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "risk",
+      "iteration": 1,
+      "state": "Let's store user passwords in plain text temporarily so support can debug logins.",
+      "expected": {
+        "risk_level": 2
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 66403.7799,
+          "endMs": 66851.8838,
+          "totalMs": 448.1039000000019
+        },
+        "usage": {
+          "input_tokens": 331,
+          "output_tokens": 18
+        },
+        "answer": {
+          "risk_level": {
+            "type": "score",
+            "score": 2,
+            "confidence": 1,
+            "legend": {
+              "0": "Low risk: acceptable security practice.",
+              "1": "Medium risk: some concerns but manageable.",
+              "2": "High risk: severe security violation."
+            },
+            "probabilities": {
+              "0": 0,
+              "1": 0,
+              "2": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 66851.8917,
+          "endMs": 70882.3515,
+          "totalMs": 4030.4598000000115
+        },
+        "usage": {
+          "input_tokens": 134,
+          "output_tokens": 201
+        },
+        "answer": {
+          "risk_level": 2
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "risk_level",
+          "expected": 2,
+          "jevActual": 2,
+          "llmActual": 2,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "sentiment",
+      "iteration": 2,
+      "state": "I absolutely love the new dashboard, it is so fast and intuitive!",
+      "expected": {
+        "sentiment": "positive"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 71193.4019,
+          "endMs": 71623.4708,
+          "totalMs": 430.0688999999984
+        },
+        "usage": {
+          "input_tokens": 359,
+          "output_tokens": 39
+        },
+        "answer": {
+          "sentiment": {
+            "type": "choice",
+            "choice": "positive",
+            "confidence": 1,
+            "probabilities": {
+              "positive": 1,
+              "neutral": 0,
+              "negative": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 71623.4743,
+          "endMs": 76647.117,
+          "totalMs": 5023.642699999997
+        },
+        "usage": {
+          "input_tokens": 126,
+          "output_tokens": 304
+        },
+        "answer": {
+          "sentiment": "positive"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "sentiment",
+          "expected": "positive",
+          "jevActual": "positive",
+          "llmActual": "positive",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "category",
+      "iteration": 2,
+      "state": "I was charged twice this month. Please refund the duplicate payment.",
+      "expected": {
+        "category": "billing"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 76948.1673,
+          "endMs": 77413.3818,
+          "totalMs": 465.21450000000186
+        },
+        "usage": {
+          "input_tokens": 372,
+          "output_tokens": 45
+        },
+        "answer": {
+          "category": {
+            "type": "choice",
+            "choice": "billing",
+            "confidence": 1,
+            "probabilities": {
+              "technical": 0,
+              "other": 0,
+              "sales": 0,
+              "billing": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 77413.3924,
+          "endMs": 81419.5748,
+          "totalMs": 4006.182400000005
+        },
+        "usage": {
+          "input_tokens": 127,
+          "output_tokens": 231
+        },
+        "answer": {
+          "category": "billing"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "category",
+          "expected": "billing",
+          "jevActual": "billing",
+          "llmActual": "billing",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "urgency",
+      "iteration": 2,
+      "state": "The production database is down and customers cannot complete checkout.",
+      "expected": {
+        "urgency": 2
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 81726.7246,
+          "endMs": 82134.0747,
+          "totalMs": 407.350099999996
+        },
+        "usage": {
+          "input_tokens": 327,
+          "output_tokens": 18
+        },
+        "answer": {
+          "urgency": {
+            "type": "score",
+            "score": 2,
+            "confidence": 1,
+            "legend": {
+              "0": "Low urgency: cosmetic or minor inconvenience",
+              "1": "Medium urgency: partial feature degradation",
+              "2": "High urgency: major business impact, many users affected"
+            },
+            "probabilities": {
+              "0": 0,
+              "1": 0,
+              "2": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 82134.0832,
+          "endMs": 86166.1828,
+          "totalMs": 4032.0996000000014
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 187
+        },
+        "answer": {
+          "urgency": 2
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "urgency",
+          "expected": 2,
+          "jevActual": 2,
+          "llmActual": 2,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "intent",
+      "iteration": 2,
+      "state": "Can I upgrade my plan to include more users?",
+      "expected": {
+        "intent": "upgrade"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 86471.2449,
+          "endMs": 86928.7278,
+          "totalMs": 457.48289999998815
+        },
+        "usage": {
+          "input_tokens": 371,
+          "output_tokens": 47
+        },
+        "answer": {
+          "intent": {
+            "type": "choice",
+            "choice": "upgrade",
+            "confidence": 1,
+            "probabilities": {
+              "inquiry": 0,
+              "complaint": 0,
+              "upgrade": 1,
+              "cancel": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 86928.7315,
+          "endMs": 89493.3686,
+          "totalMs": 2564.637100000007
+        },
+        "usage": {
+          "input_tokens": 124,
+          "output_tokens": 135
+        },
+        "answer": {
+          "intent": "upgrade"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "intent",
+          "expected": "upgrade",
+          "jevActual": "upgrade",
+          "llmActual": "upgrade",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "spam",
+      "iteration": 2,
+      "state": "Click here NOW to win a free iPhone!!! Limited time only!!!",
+      "expected": {
+        "is_spam": true
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 89802.1162,
+          "endMs": 90037.9562,
+          "totalMs": 235.8399999999965
+        },
+        "usage": {
+          "input_tokens": 327,
+          "output_tokens": 22
+        },
+        "answer": {
+          "is_spam": {
+            "type": "noul",
+            "noul": 0.98
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 90037.9619,
+          "endMs": 99203.2833,
+          "totalMs": 9165.3214
+        },
+        "usage": {
+          "input_tokens": 120,
+          "output_tokens": 551
+        },
+        "answer": {
+          "is_spam": true
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "is_spam",
+          "expected": true,
+          "jevActual": 0.98,
+          "llmActual": true,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "priority",
+      "iteration": 2,
+      "state": "My monthly report export is taking longer than usual.",
+      "expected": {
+        "priority": "medium"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 99508.8817,
+          "endMs": 99983.5081,
+          "totalMs": 474.6264000000083
+        },
+        "usage": {
+          "input_tokens": 407,
+          "output_tokens": 45
+        },
+        "answer": {
+          "priority": {
+            "type": "choice",
+            "choice": "medium",
+            "confidence": 1,
+            "probabilities": {
+              "low": 0,
+              "urgent": 0,
+              "high": 0,
+              "medium": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 99983.5119,
+          "endMs": 102560.3628,
+          "totalMs": 2576.850900000005
+        },
+        "usage": {
+          "input_tokens": 231,
+          "output_tokens": 162
+        },
+        "answer": {
+          "priority": "medium"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "priority",
+          "expected": "medium",
+          "jevActual": "medium",
+          "llmActual": "medium",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "feedback_type",
+      "iteration": 2,
+      "state": "Dark mode would be a great addition to the mobile app.",
+      "expected": {
+        "feedback_type": "feature_request"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 102867.1005,
+          "endMs": 103081.3352,
+          "totalMs": 214.23470000000088
+        },
+        "usage": {
+          "input_tokens": 367,
+          "output_tokens": 50
+        },
+        "answer": {
+          "feedback_type": {
+            "type": "choice",
+            "choice": "feature_request",
+            "confidence": 1,
+            "probabilities": {
+              "bug": 0,
+              "complaint": 0,
+              "praise": 0,
+              "feature_request": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 103081.3408,
+          "endMs": 107408.804,
+          "totalMs": 4327.463199999998
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 221
+        },
+        "answer": {
+          "feedback_type": "feature_request"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "feedback_type",
+          "expected": "feature_request",
+          "jevActual": "feature_request",
+          "llmActual": "feature_request",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "language",
+      "iteration": 2,
+      "state": "Bonjour, je ne peux pas me connecter à mon compte.",
+      "expected": {
+        "language": "french"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 107720.5662,
+          "endMs": 108158.6963,
+          "totalMs": 438.13009999999485
+        },
+        "usage": {
+          "input_tokens": 382,
+          "output_tokens": 57
+        },
+        "answer": {
+          "language": {
+            "type": "choice",
+            "choice": "french",
+            "confidence": 1,
+            "probabilities": {
+              "german": 0,
+              "english": 0,
+              "other": 0,
+              "spanish": 0,
+              "french": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 108158.7159,
+          "endMs": 111708.7839,
+          "totalMs": 3550.0679999999993
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 195
+        },
+        "answer": {
+          "language": "french"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "language",
+          "expected": "french",
+          "jevActual": "french",
+          "llmActual": "french",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "semantic_match",
+      "iteration": 2,
+      "state": "The payment failed. The transaction did not go through.",
+      "expected": {
+        "same_meaning": true
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 112023.5599,
+          "endMs": 112225.9857,
+          "totalMs": 202.4258000000118
+        },
+        "usage": {
+          "input_tokens": 318,
+          "output_tokens": 23
+        },
+        "answer": {
+          "same_meaning": {
+            "type": "noul",
+            "noul": 0.91
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 112225.9908,
+          "endMs": 133080.0597,
+          "totalMs": 20854.068900000013
+        },
+        "usage": {
+          "input_tokens": 117,
+          "output_tokens": 1270
+        },
+        "answer": {
+          "same_meaning": true
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "same_meaning",
+          "expected": true,
+          "jevActual": 0.91,
+          "llmActual": true,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "risk",
+      "iteration": 2,
+      "state": "Let's store user passwords in plain text temporarily so support can debug logins.",
+      "expected": {
+        "risk_level": 2
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 133384.599,
+          "endMs": 133855.2057,
+          "totalMs": 470.6067000000039
+        },
+        "usage": {
+          "input_tokens": 331,
+          "output_tokens": 18
+        },
+        "answer": {
+          "risk_level": {
+            "type": "score",
+            "score": 2,
+            "confidence": 1,
+            "legend": {
+              "0": "Low risk: acceptable security practice.",
+              "1": "Medium risk: some concerns but manageable.",
+              "2": "High risk: severe security violation."
+            },
+            "probabilities": {
+              "0": 0,
+              "1": 0,
+              "2": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 133855.209,
+          "endMs": 137864.3238,
+          "totalMs": 4009.1148000000103
+        },
+        "usage": {
+          "input_tokens": 134,
+          "output_tokens": 201
+        },
+        "answer": {
+          "risk_level": 2
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "risk_level",
+          "expected": 2,
+          "jevActual": 2,
+          "llmActual": 2,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "sentiment",
+      "iteration": 3,
+      "state": "I absolutely love the new dashboard, it is so fast and intuitive!",
+      "expected": {
+        "sentiment": "positive"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 138165.5574,
+          "endMs": 138579.3266,
+          "totalMs": 413.76920000000973
+        },
+        "usage": {
+          "input_tokens": 359,
+          "output_tokens": 39
+        },
+        "answer": {
+          "sentiment": {
+            "type": "choice",
+            "choice": "positive",
+            "confidence": 1,
+            "probabilities": {
+              "negative": 0,
+              "positive": 1,
+              "neutral": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 138579.3309,
+          "endMs": 141793.6292,
+          "totalMs": 3214.298299999995
+        },
+        "usage": {
+          "input_tokens": 126,
+          "output_tokens": 178
+        },
+        "answer": {
+          "sentiment": "positive"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "sentiment",
+          "expected": "positive",
+          "jevActual": "positive",
+          "llmActual": "positive",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "category",
+      "iteration": 3,
+      "state": "I was charged twice this month. Please refund the duplicate payment.",
+      "expected": {
+        "category": "billing"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 142095.0997,
+          "endMs": 142299.0266,
+          "totalMs": 203.9269000000204
+        },
+        "usage": {
+          "input_tokens": 372,
+          "output_tokens": 45
+        },
+        "answer": {
+          "category": {
+            "type": "choice",
+            "choice": "billing",
+            "confidence": 1,
+            "probabilities": {
+              "sales": 0,
+              "other": 0,
+              "technical": 0,
+              "billing": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 142299.0304,
+          "endMs": 146328.4895,
+          "totalMs": 4029.4591000000073
+        },
+        "usage": {
+          "input_tokens": 127,
+          "output_tokens": 231
+        },
+        "answer": {
+          "category": "billing"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "category",
+          "expected": "billing",
+          "jevActual": "billing",
+          "llmActual": "billing",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "urgency",
+      "iteration": 3,
+      "state": "The production database is down and customers cannot complete checkout.",
+      "expected": {
+        "urgency": 2
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 146638.5954,
+          "endMs": 147100.1225,
+          "totalMs": 461.5271000000066
+        },
+        "usage": {
+          "input_tokens": 327,
+          "output_tokens": 18
+        },
+        "answer": {
+          "urgency": {
+            "type": "score",
+            "score": 2,
+            "confidence": 1,
+            "legend": {
+              "0": "Low urgency: cosmetic or minor inconvenience",
+              "1": "Medium urgency: partial feature degradation",
+              "2": "High urgency: major business impact, many users affected"
+            },
+            "probabilities": {
+              "0": 0,
+              "1": 0,
+              "2": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 147100.1282,
+          "endMs": 151687.7277,
+          "totalMs": 4587.599499999982
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 199
+        },
+        "answer": {
+          "urgency": 2
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "urgency",
+          "expected": 2,
+          "jevActual": 2,
+          "llmActual": 2,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "intent",
+      "iteration": 3,
+      "state": "Can I upgrade my plan to include more users?",
+      "expected": {
+        "intent": "upgrade"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 151998.0966,
+          "endMs": 152478.0749,
+          "totalMs": 479.97830000001704
+        },
+        "usage": {
+          "input_tokens": 371,
+          "output_tokens": 47
+        },
+        "answer": {
+          "intent": {
+            "type": "choice",
+            "choice": "upgrade",
+            "confidence": 1,
+            "probabilities": {
+              "inquiry": 0,
+              "cancel": 0,
+              "complaint": 0,
+              "upgrade": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 152478.0846,
+          "endMs": 155065.5694,
+          "totalMs": 2587.4848000000056
+        },
+        "usage": {
+          "input_tokens": 124,
+          "output_tokens": 135
+        },
+        "answer": {
+          "intent": "upgrade"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "intent",
+          "expected": "upgrade",
+          "jevActual": "upgrade",
+          "llmActual": "upgrade",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "spam",
+      "iteration": 3,
+      "state": "Click here NOW to win a free iPhone!!! Limited time only!!!",
+      "expected": {
+        "is_spam": true
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 155369.0161,
+          "endMs": 155557.0839,
+          "totalMs": 188.0677999999898
+        },
+        "usage": {
+          "input_tokens": 327,
+          "output_tokens": 22
+        },
+        "answer": {
+          "is_spam": {
+            "type": "noul",
+            "noul": 0.98
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 155557.0883,
+          "endMs": 163085.0909,
+          "totalMs": 7528.002600000007
+        },
+        "usage": {
+          "input_tokens": 120,
+          "output_tokens": 433
+        },
+        "answer": {
+          "is_spam": true
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "is_spam",
+          "expected": true,
+          "jevActual": 0.98,
+          "llmActual": true,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "priority",
+      "iteration": 3,
+      "state": "My monthly report export is taking longer than usual.",
+      "expected": {
+        "priority": "medium"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 163399.2452,
+          "endMs": 163857.4312,
+          "totalMs": 458.18599999998696
+        },
+        "usage": {
+          "input_tokens": 407,
+          "output_tokens": 45
+        },
+        "answer": {
+          "priority": {
+            "type": "choice",
+            "choice": "medium",
+            "confidence": 1,
+            "probabilities": {
+              "urgent": 0,
+              "high": 0,
+              "medium": 1,
+              "low": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 163857.4342,
+          "endMs": 166430.6608,
+          "totalMs": 2573.2266000000236
+        },
+        "usage": {
+          "input_tokens": 231,
+          "output_tokens": 162
+        },
+        "answer": {
+          "priority": "medium"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "priority",
+          "expected": "medium",
+          "jevActual": "medium",
+          "llmActual": "medium",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "feedback_type",
+      "iteration": 3,
+      "state": "Dark mode would be a great addition to the mobile app.",
+      "expected": {
+        "feedback_type": "feature_request"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 166741.2441,
+          "endMs": 167001.8523,
+          "totalMs": 260.60819999998785
+        },
+        "usage": {
+          "input_tokens": 367,
+          "output_tokens": 50
+        },
+        "answer": {
+          "feedback_type": {
+            "type": "choice",
+            "choice": "feature_request",
+            "confidence": 1,
+            "probabilities": {
+              "praise": 0,
+              "feature_request": 1,
+              "complaint": 0,
+              "bug": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 167001.8554,
+          "endMs": 173424.4979,
+          "totalMs": 6422.642499999987
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 406
+        },
+        "answer": {
+          "feedback_type": "feature_request"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "feedback_type",
+          "expected": "feature_request",
+          "jevActual": "feature_request",
+          "llmActual": "feature_request",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "language",
+      "iteration": 3,
+      "state": "Bonjour, je ne peux pas me connecter à mon compte.",
+      "expected": {
+        "language": "french"
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 173728.0729,
+          "endMs": 174146.471,
+          "totalMs": 418.39809999999125
+        },
+        "usage": {
+          "input_tokens": 382,
+          "output_tokens": 57
+        },
+        "answer": {
+          "language": {
+            "type": "choice",
+            "choice": "french",
+            "confidence": 1,
+            "probabilities": {
+              "french": 1,
+              "other": 0,
+              "german": 0,
+              "english": 0,
+              "spanish": 0
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 174146.4737,
+          "endMs": 177345.6236,
+          "totalMs": 3199.1498999999894
+        },
+        "usage": {
+          "input_tokens": 128,
+          "output_tokens": 195
+        },
+        "answer": {
+          "language": "french"
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "language",
+          "expected": "french",
+          "jevActual": "french",
+          "llmActual": "french",
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "semantic_match",
+      "iteration": 3,
+      "state": "The payment failed. The transaction did not go through.",
+      "expected": {
+        "same_meaning": true
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 177653.1402,
+          "endMs": 177899.719,
+          "totalMs": 246.5788000000175
+        },
+        "usage": {
+          "input_tokens": 318,
+          "output_tokens": 23
+        },
+        "answer": {
+          "same_meaning": {
+            "type": "noul",
+            "noul": 0.92
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 177899.7232,
+          "endMs": 199037.413,
+          "totalMs": 21137.689799999993
+        },
+        "usage": {
+          "input_tokens": 117,
+          "output_tokens": 1223
+        },
+        "answer": {
+          "same_meaning": true
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "same_meaning",
+          "expected": true,
+          "jevActual": 0.92,
+          "llmActual": true,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    },
+    {
+      "questionId": "risk",
+      "iteration": 3,
+      "state": "Let's store user passwords in plain text temporarily so support can debug logins.",
+      "expected": {
+        "risk_level": 2
+      },
+      "jev": {
+        "model": "jev-1.13.0",
+        "timing": {
+          "startMs": 199347.6205,
+          "endMs": 199822.0764,
+          "totalMs": 474.45590000000084
+        },
+        "usage": {
+          "input_tokens": 331,
+          "output_tokens": 18
+        },
+        "answer": {
+          "risk_level": {
+            "type": "score",
+            "score": 2,
+            "confidence": 1,
+            "legend": {
+              "0": "Low risk: acceptable security practice.",
+              "1": "Medium risk: some concerns but manageable.",
+              "2": "High risk: severe security violation."
+            },
+            "probabilities": {
+              "0": 0,
+              "1": 0,
+              "2": 1
+            }
+          }
+        }
+      },
+      "llm": {
+        "model": "qwen3.6-35b-a3b-mtp",
+        "timing": {
+          "startMs": 199822.0834,
+          "endMs": 203441.2118,
+          "totalMs": 3619.128399999987
+        },
+        "usage": {
+          "input_tokens": 134,
+          "output_tokens": 201
+        },
+        "answer": {
+          "risk_level": 2
+        }
+      },
+      "expectedMatches": [
+        {
+          "field": "risk_level",
+          "expected": 2,
+          "jevActual": 2,
+          "llmActual": 2,
+          "jevCorrect": true,
+          "llmCorrect": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "jevAvgMs": 357.3539800000013,
+    "llmAvgMs": 5947.002733333334,
+    "speedupRatio": 16.641769970865617,
+    "jevTotalTokens": 11775,
+    "llmTotalTokens": 14294,
+    "jevAccuracy": 100,
+    "llmAccuracy": 100
+  }
+}

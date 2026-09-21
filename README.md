@@ -97,17 +97,22 @@ JEV_MODEL=jev-latest
 ## GitHub Pages へのデプロイ
 
 1. このリポジトリを GitHub にプッシュ
-2. Settings → Pages → Branch を `gh-pages` に設定
+2. Settings → Pages → Source を **GitHub Actions** に設定
 3. GitHub Actions ワークフロー `.github/workflows/deploy.yml` が自動的に `public/` ディレクトリをデプロイ
 
-**注意**: 公開ページには demo 用の `results.json` を含める必要があります。ローカルで `npm run bench` を実行し、`public/data/results.json` としてコピーしてからコミットしてください。
+**デモ用サンプル結果**: 初回デプロイ時に `public/data/results.json` が存在しない場合、自動的にサンプル結果が生成されます。
 
-GitHub Actions の `deploy.yml` がビルド時に自動的にサンプル結果を `public/data/results.json` に生成します。実際のベンチマーク結果で上書きしたい場合は、ローカルで実行後にコミットします（ただし API キーは含まれないため結果ファイルのみコミットしてください）。
+**実測結果を公開する場合**:
 
 ```bash
 npm run bench
-npm run serve
+cp data/results.json public/data/results.json
+git add public/data/results.json
+git commit -m "Update benchmark results"
+git push
 ```
+
+`public/data/results.json` は `.gitignore` で除外されていないため、コミットすると GitHub Pages に反映されます。`data/results.json` はローカル実行結果として引き続き除外されます。
 
 ## 注意点
 

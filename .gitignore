@@ -1,4 +1,4 @@
 node_modules
 .env
+# ローカル実行結果は除外（public/data/results.json は GitHub Pages 用としてコミット可能）
 data/results.json
-public/data/results.json
