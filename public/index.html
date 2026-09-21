@@ -29,6 +29,17 @@
     }
     header h1 { margin: 0 0 0.5rem; font-size: 1.75rem; }
     header p { margin: 0; color: var(--muted); }
+    header a { color: var(--jev); text-decoration: none; }
+    header a:hover { text-decoration: underline; }
+    footer {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+    footer a { color: var(--jev); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
     main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
     .card {
@@ -106,7 +117,8 @@
 <body>
   <header>
     <h1>Jev vs LLM レイテンシ比較ダッシュボード</h1>
-    <p>TypeSafe Jev（System One）とOpenAI互換LLM（LM Studio含む）の回答速度を比較</p>
+    <p>TypeSafe Jev（System One）とOpenAI互換LLM（ローカルLLM含む）の回答速度を比較</p>
+    <p><a href="https://github.com/Chronona/jev-llm-benchmark">GitHubリポジトリ: Chronona/jev-llm-benchmark</a></p>
   </header>
 
   <main>
@@ -195,6 +207,12 @@
       <p>ベンチマークを実行すると結果が表示されます: <code>npm run bench</code></p>
     </div>
   </main>
+
+  <footer>
+    © 2026 <a href="https://github.com/Chronona">chronona</a> ·
+    <a href="https://github.com/Chronona/jev-llm-benchmark">GitHubリポジトリ</a> ·
+    MIT License
+  </footer>
 
   <script>
     async function loadResults() {
