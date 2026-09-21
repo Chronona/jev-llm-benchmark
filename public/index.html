@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jev vs LLM レイテンシ比較</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <style>
     :root {
       --bg: #0f172a;
@@ -191,52 +190,6 @@
       </div>
     </section>
 
-    <section class="c4-section">
-      <h2>C4 設計モデル</h2>
-
-      <h3>C1 - System Context</h3>
-      <div class="mermaid">
-flowchart TB
-    User([Engineer / Evaluator])
-    Bench[System Under Test<br/>Jev vs LLM Benchmark]
-    TypeSafe[TypeSafe AI API]
-    OpenAI[OpenAI API]
-    LMStudio[LM Studio]
-    Dashboard[Benchmark Dashboard]
-
-    User -->|runs benchmark| Bench
-    User -->|views results| Dashboard
-    Bench -->|HTTP POST /v1/systemone| TypeSafe
-    Bench -->|HTTP POST /v1/chat/completions| OpenAI
-    Bench -.->|or local LM Studio| LMStudio
-    Bench -->|writes results.json| Dashboard
-      </div>
-
-      <h3>C2 - Container</h3>
-      <div class="mermaid">
-flowchart TB
-    subgraph "Local Machine"
-        Runner[Node.js Benchmark Runner<br/>TypeScript + tsx]
-        HTML[Static HTML Dashboard<br/>Chart.js + Mermaid]
-        Env[.env configuration]
-    end
-
-    subgraph "External Services"
-        TS[TypeSafe AI API<br/>model: jev-latest]
-        OAI[OpenAI API<br/>or OpenAI-compatible proxy]
-        LMStudio[LM Studio<br/>localhost:1234/v1]
-    end
-
-    Env -->|TYPESAFE_API_KEY| Runner
-    Env -->|LLM_API_KEY| Runner
-    Env -->|LLM_BASE_URL| Runner
-    Runner -->|1. call Jev| TS
-    Runner -->|2. call LLM| OAI
-    Runner -.->|2-alt. call local LLM| LMStudio
-    Runner -->|3. write results.json| HTML
-      </div>
-    </section>
-
     <div id="empty" class="empty" style="margin-top: 2rem;">
       <p><code>data/results.json</code> が見つかりません。</p>
       <p>ベンチマークを実行すると結果が表示されます: <code>npm run bench</code></p>
@@ -244,8 +197,6 @@ flowchart TB
   </main>
 
   <script>
-    mermaid.initialize({ startOnLoad: true, theme: "dark" });
-
     async function loadResults() {
       try {
         const res = await fetch("data/results.json");
