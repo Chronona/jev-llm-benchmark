@@ -64,29 +64,29 @@ export function SummarySection({ report }: { report: BenchmarkReport }) {
   ]
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {cards.map((c) => (
-          <Card key={c.label}>
-            <CardHeader>
-              <CardDescription>{c.label}</CardDescription>
-              <CardTitle className={cn("text-2xl", c.accent)}>
-                {c.value}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        ))}
-        <Card>
+      <Card className="sm:col-span-2 lg:col-span-3 xl:col-span-4">
+        <CardHeader>
+          <CardDescription>実行条件</CardDescription>
+        </CardHeader>
+        <CardContent className="text-sm text-muted-foreground">
+          生成日時: {new Date(report.meta.generatedAt).toLocaleString()} |
+          Jevモデル: <code>{report.meta.jevModel}</code> |
+          LLMモデル: <code>{report.meta.llmModel}</code> |
+          イテレーション: {report.meta.iterations} |
+          ウォームアップ: {report.meta.warmupRuns} |
+          総実行数: {report.runs.length} ペア
+        </CardContent>
+      </Card>
+      {cards.map((c) => (
+        <Card key={c.label}>
           <CardHeader>
-            <CardDescription>実行条件</CardDescription>
+            <CardDescription>{c.label}</CardDescription>
+            <CardTitle className={cn("text-2xl", c.accent)}>
+              {c.value}
+            </CardTitle>
           </CardHeader>
-          <CardContent className="text-sm text-muted-foreground">
-            生成日時: {new Date(report.meta.generatedAt).toLocaleString()} |
-            Jevモデル: <code>{report.meta.jevModel}</code> |
-            LLMモデル: <code>{report.meta.llmModel}</code> |
-            イテレーション: {report.meta.iterations} |
-            ウォームアップ: {report.meta.warmupRuns} |
-            総実行数: {report.runs.length} ペア
-          </CardContent>
         </Card>
-      </div>
+      ))}
+    </div>
   )
 }
