@@ -50,7 +50,7 @@ export function QuestionStats({ runs }: { runs: BenchmarkRun[] }) {
                   {formatMeanStd(llmTimes)}
                 </div>
                 <div className="text-muted-foreground">
-                  速度差: {speedup.toFixed(2)}x
+                  高速倍率: {speedup.toFixed(2)}x
                 </div>
                 <div
                   className={cn(

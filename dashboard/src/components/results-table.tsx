@@ -26,7 +26,7 @@ export function ResultsTable({ runs }: { runs: BenchmarkRun[] }) {
               <TableHead>State</TableHead>
               <TableHead>Jev レイテンシ</TableHead>
               <TableHead>LLM レイテンシ</TableHead>
-              <TableHead>速度差</TableHead>
+              <TableHead>高速倍率</TableHead>
               <TableHead>Expected</TableHead>
               <TableHead>Jev 生回答</TableHead>
               <TableHead>LLM 生回答</TableHead>

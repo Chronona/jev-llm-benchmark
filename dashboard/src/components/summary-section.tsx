@@ -31,7 +31,7 @@ export function SummarySection({ report }: { report: BenchmarkReport }) {
       accent: "text-pink-300",
     },
     {
-      label: "速度差（LLM / Jev）",
+      label: "Jev 高速倍率",
       value: speedupText(report.summary.speedupRatio),
       accent: "",
     },

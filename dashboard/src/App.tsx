@@ -52,7 +52,7 @@ export default function App() {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base">
-                    質問ごとの速度差（LLM / Jev）
+                    質問ごとの高速倍率
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

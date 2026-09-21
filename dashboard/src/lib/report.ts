@@ -79,8 +79,8 @@ export function formatMeanStd(values: number[]): string {
 
 export function speedupText(ratio: number): string {
   return ratio >= 1
-    ? `${ratio.toFixed(2)}x 遅い`
-    : `${(1 / ratio).toFixed(2)}x 速い`
+    ? `${ratio.toFixed(2)}x 高速`
+    : `${(1 / ratio).toFixed(2)}x 低速`
 }
 
 type JevFieldType = "choice" | "noul" | "score" | "raw"

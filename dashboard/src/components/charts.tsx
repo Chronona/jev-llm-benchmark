@@ -78,7 +78,7 @@ export function LatencyBarChart({ runs }: { runs: BenchmarkRun[] }) {
   )
 }
 
-// 質問ごとの速度差（LLM平均 / Jev平均）
+// 質問ごとの高速倍率（LLM平均 / Jev平均 = Jev が何倍高速か）
 export function SpeedupChart({ runs }: { runs: BenchmarkRun[] }) {
   const groups = groupRunsByQuestion(runs)
   return (
@@ -88,7 +88,7 @@ export function SpeedupChart({ runs }: { runs: BenchmarkRun[] }) {
           ...baseOptions,
           plugins: { legend: { display: false } },
           scales: {
-            y: axisWithUnit("x (LLM / Jev)"),
+            y: axisWithUnit("倍率 (x)"),
             x: {
               grid: { color: GRID_COLOR },
               ticks: { color: MUTED_COLOR },
@@ -99,7 +99,7 @@ export function SpeedupChart({ runs }: { runs: BenchmarkRun[] }) {
           labels: groups.map((g) => g.id),
           datasets: [
             {
-              label: "速度差 (x)",
+              label: "高速倍率 (x)",
               data: groups.map(
                 (g) =>
                   avg(g.runs.map((r) => r.llm.timing.totalMs)) /
