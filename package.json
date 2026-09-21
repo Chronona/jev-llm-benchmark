@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "bench": "tsx src/benchmark.ts",
-    "serve": "node scripts/prepare-serve.js && serve -l tcp://localhost:3000 public"
+    "dashboard:build": "node scripts/prepare-dashboard.js && npm --prefix dashboard run build",
+    "dashboard:dev": "node scripts/prepare-dashboard.js && npm --prefix dashboard run dev",
+    "serve": "npm run dashboard:build && serve -l tcp://localhost:3000 dashboard/dist"
   },
   "keywords": [
     "typesafe-ai",
