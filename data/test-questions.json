@@ -1,0 +1,4 @@
+[
+  "First custom input",
+  { "id": "second", "state": "Second custom input" }
+]
