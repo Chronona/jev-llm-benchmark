@@ -10,14 +10,14 @@ flowchart TB
     Bench[System Under Test<br/>Jev vs LLM Benchmark]
     TypeSafe[TypeSafe AI API]
     OpenAI[OpenAI API]
-    LMStudio[LM Studio]
+    LocalLLM[Local LLM<br/>LM Studio / llama.cpp]
     Dashboard[Benchmark Dashboard]
 
     User -->|runs benchmark| Bench
     User -->|views results| Dashboard
     Bench -->|HTTP POST /v1/systemone| TypeSafe
     Bench -->|HTTP POST /v1/chat/completions| OpenAI
-    Bench -.->|or local LM Studio| LMStudio
+    Bench -.->|or local LLM| LocalLLM
     Bench -->|writes results.json| Dashboard
 ```
 
@@ -34,7 +34,7 @@ flowchart TB
     subgraph "External Services"
         TS[TypeSafe AI API<br/>model: jev-latest]
         OAI[OpenAI API<br/>or OpenAI-compatible proxy]
-        LMStudio[LM Studio<br/>localhost:1234/v1]
+        LocalLLM[Local LLM<br/>LM Studio / llama.cpp]
     end
 
     Env -->|TYPESAFE_API_KEY| Runner
@@ -42,18 +42,18 @@ flowchart TB
     Env -->|LLM_BASE_URL| Runner
     Runner -->|1. call Jev| TS
     Runner -->|2. call LLM| OAI
-    Runner -.->|2-alt. call local LLM| LMStudio
+    Runner -.->|2-alt. call local LLM| LocalLLM
     Runner -->|3. write results.json| HTML
 ```
 
 | コンテナ | 責務 | 技術 |
 | --- | --- | --- |
-| Benchmark Runner | 質問セットを読み込み、両APIを呼び出し、レイテンシとusageを計測・保存 | Node.js 20+, TypeScript, tsx |
+| Benchmark Runner | 質問セットを読み込み、両APIを呼び出し、レイテンシとusageを計測・保存 | Node.js 24+, TypeScript, tsx |
 | Static HTML Dashboard | results.json を読み込み、表・グラフを表示 | Vanilla HTML + Chart.js |
 | .env configuration | APIキーなどの機密情報を分離管理 | dotenv |
 | TypeSafe AI API | System One モデル Jev が構造化回答を返す | HTTPS JSON API |
 | OpenAI API | 生成LLMがテキスト/JSON回答を返す | HTTPS JSON API |
-| LM Studio | ローカルで動作するOpenAI互換API（任意） | HTTP JSON API on localhost |
+| Local LLM | ローカルで動作するOpenAI互換API（LM Studio / llama.cpp など、任意） | HTTP JSON API on localhost |
 
 ## C3 - Component
 

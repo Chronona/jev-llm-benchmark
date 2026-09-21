@@ -7,7 +7,7 @@
 
 Latency benchmark comparing TypeSafe Jev (System One) against a conventional LLM.
 
-TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換 LLM（OpenAI API / LM Studio など）の**回答速度・正解率・回答一致率**を比較するベンチマークツールです。同じ state に対して両モデルに構造化された判断を依頼し、レイテンシと回答品質を並べて可視化します。
+TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換 LLM（OpenAI API、LM Studio・llama.cpp などのローカル LLM）の**回答速度・正解率・回答一致率**を比較するベンチマークツールです。同じ state に対して両モデルに構造化された判断を依頼し、レイテンシと回答品質を並べて可視化します。
 
 **Live Demo:** https://chronona.github.io/jev-llm-benchmark/
 
@@ -16,7 +16,7 @@ TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換
 - 質問ごとの平均レイテンシ ± 標準偏差、速度差（倍率）を計測
 - 各モデルの期待値（模範解答）一致率、Jev と LLM の回答一致率を可視化
 - 質問ごとの一致 / 不一致を色分け表示（Chart.js ダッシュボード）
-- `LLM_BASE_URL` で LM Studio などのローカル LLM を指定可能
+- `LLM_BASE_URL` で LM Studio・llama.cpp などのローカル LLM を指定可能
 - CLI からのカスタム入力追加、JSON ファイルからの一括読み込みに対応
 
 ## ベンチマーク内容
@@ -40,7 +40,7 @@ TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換
 
 - Node.js 24+
 - TypeSafe AI API キー（[typesafe.ai](https://typesafe.ai) で取得）
-- LLM API キー（OpenAI、または LM Studio などの OpenAI 互換エンドポイント）
+- LLM API キー（OpenAI、または LM Studio・llama.cpp などの OpenAI 互換エンドポイント）
 
 ## クイックスタート
 
@@ -99,7 +99,7 @@ npm run serve
 | --- | --- | --- |
 | `TYPESAFE_API_KEY` | TypeSafe AI API キー（必須） | — |
 | `LLM_API_KEY` | LLM API キー（必須） | — |
-| `LLM_BASE_URL` | OpenAI 互換エンドポイント | `https://api.openai.com/v1` / LM Studio は `http://localhost:1234/v1` |
+| `LLM_BASE_URL` | OpenAI 互換エンドポイント | `https://api.openai.com/v1`（LM Studio: `http://localhost:1234/v1`、llama.cpp: `http://localhost:8080/v1` など） |
 | `LLM_MODEL` | LLM モデル名 | `gpt-4o-mini` |
 | `JEV_MODEL` | Jev モデル名 | `jev-latest` |
 | `ITERATIONS` | 計測回数 | `3` |
@@ -138,41 +138,22 @@ flowchart TB
     Bench[System Under Test<br/>Jev vs LLM Benchmark]
     TypeSafe[TypeSafe AI API]
     OpenAI[OpenAI API]
-    LMStudio[LM Studio]
+    LocalLLM[Local LLM<br/>LM Studio / llama.cpp]
     Dashboard[Benchmark Dashboard]
 
     User -->|runs benchmark| Bench
     User -->|views results| Dashboard
     Bench -->|HTTP POST /v1/systemone| TypeSafe
     Bench -->|HTTP POST /v1/chat/completions| OpenAI
-    Bench -.->|or local LM Studio| LMStudio
+    Bench -.->|or local LLM| LocalLLM
     Bench -->|writes results.json| Dashboard
 ```
 
-## GitHub Pages へのデプロイ
-
-1. このリポジトリを GitHub にプッシュ
-2. Settings → Pages → Source を **GitHub Actions** に設定
-3. `main` への push で `.github/workflows/deploy.yml` が `public/` を自動デプロイ
-
-実測結果を公開する場合：
-
-```bash
-npm run bench
-cp data/results.json public/data/results.json
-git add public/data/results.json
-git commit -m "Update benchmark results"
-git push
-```
-
-`data/results.json` はローカル用（git除外）、`public/data/results.json` は公開用（コミット対象）です。後者がない初回デプロイ時はサンプル結果が自動生成されます。
-
 ## 注意点
 
-- **API キーはコミットしないでください**。`.env` は `.gitignore` で除外されています。
 - **比較の公平性**: Jev は System One（構造化判断）モデル、LLM は生成モデルです。役割が異なるため、単純な速度比較ではなくユースケースに応じた比較としてご利用ください。
 - **結果の再現性**: モデルバージョン、サーバー負荷、ネットワーク環境、ハードウェアによってレイテンシは変動します。
-- **LM Studio の制約**: OpenAI 互換 API が `response_format: { type: "json_object" }` をサポートしていないため、本ツールは text モード + JSON 抽出方式を使用しています。
+- **互換エンドポイントの制約**: 一部の OpenAI 互換 API（例: LM Studio）は `response_format: { type: "json_object" }` に対応していないため、本ツールは text モード + JSON 抽出方式を使用しています。
 
 ## ライセンス
 
@@ -182,3 +163,4 @@ MIT — [LICENSE](LICENSE) を参照してください。
 
 - [TypeSafe AI](https://typesafe.ai)
 - [LM Studio](https://lmstudio.ai/)
+- [llama.cpp](https://github.com/ggerganov/llama.cpp)
