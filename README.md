@@ -3,7 +3,7 @@
 [![CI](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/ci.yml)
 [![Deploy to GitHub Pages](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/deploy.yml/badge.svg)](https://github.com/Chronona/jev-llm-benchmark/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)
+![Node](https://img.shields.io/badge/node-%3E%3D24-brightgreen)
 
 Latency benchmark comparing TypeSafe Jev (System One) against a conventional LLM.
 
@@ -38,7 +38,7 @@ TypeSafe [Jev](https://typesafe.ai)（System One モデル）と、OpenAI 互換
 
 ## 必要なもの
 
-- Node.js 20+
+- Node.js 24+
 - TypeSafe AI API キー（[typesafe.ai](https://typesafe.ai) で取得）
 - LLM API キー（OpenAI、または LM Studio などの OpenAI 互換エンドポイント）
 
